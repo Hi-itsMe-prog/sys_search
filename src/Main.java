@@ -5,32 +5,34 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int n = scanner.nextInt();
-        int R = -1;
-
-        int[] arr = new int[14];
-        for (int i = 0; i < 14; i++) {
-            arr[i] = -1;
-        }
+        int[] numbers = new int[n];
 
         for (int i = 0; i < n; i++) {
-            int num = scanner.nextInt();
+            numbers[i] = scanner.nextInt();
+        }
 
-            int s = num % 14;
-            if (num > arr[s]) {
-                arr[s] = num;
-            }
+        int maxR = -1;
 
-            for (int j = 0; j < 14; j++) {
-                if (arr[j] != -1 && arr[j] != num) {
-                    int pr = num * arr[j];
-                    if (pr % 14 == 0 && pr > R) {
-                        R = pr;
+        for (int i = 0; i < n; i++) {
+            int current = numbers[i];
+
+
+            if (current % 14 == 0) {
+
+                for (int j = 0; j < n; j++) {
+                    for (int k = j + 1; k < n; k++) {
+                        if (numbers[j] * numbers[k] == current && j != i && k != i) {
+                            if (current > maxR) {
+                                maxR = current;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        System.out.println(R);
+        System.out.println(maxR);
+
         scanner.close();
     }
 }
